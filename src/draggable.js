@@ -306,13 +306,14 @@ var $dragProvider = function() {
           return;
         }
 
-        var style = self.element.prop('style');
+        var style = self.element.prop('style'),
+            computedStyle = window.getComputedStyle(self.element[0], null);
 
         var position = {
           top: event.pageY,
           left: event.pageX
         },
-        x = style.left || 0, y = style.top || 0,  nx, ny;
+        x = computedStyle.getPropertyValue('left').replace('px', '') || 0, y = computedStyle.getPropertyValue('top').replace('px', '') || 0,  nx, ny;
 
         ny = parseInt(y, 10) + (position.top - self.lastMouseY);
         nx = parseInt(x, 10) + (position.left - self.lastMouseX);
